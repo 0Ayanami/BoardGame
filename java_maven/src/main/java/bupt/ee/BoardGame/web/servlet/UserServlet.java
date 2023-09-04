@@ -152,9 +152,7 @@ public class UserServlet extends BaseServlet {
         //HttpSession session = request.getSession();
         //User user = (User) session.getAttribute("user");
         //将user写回客户端
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),user);
+        writeValue(user, response);
     }
 
     /**

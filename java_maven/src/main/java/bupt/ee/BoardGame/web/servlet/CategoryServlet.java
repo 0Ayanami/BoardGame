@@ -28,11 +28,6 @@ public class CategoryServlet extends BaseServlet {
         //调用service查询所有
         List<Category> cs = service.findAll();
         //序列化json返回
-        //因为该流程会被频繁的调用（与前端Ajax交互会非常的多），所以最好封装到父类的一个方法中
-        /*ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),cs);*/
-
         //调用父类的封装好的序列化方法
         writeValue(cs,response);
     }

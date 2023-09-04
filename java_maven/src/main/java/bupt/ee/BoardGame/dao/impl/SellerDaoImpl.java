@@ -1,7 +1,6 @@
 package bupt.ee.BoardGame.dao.impl;
 
 import bupt.ee.BoardGame.dao.SellerDao;
-import bupt.ee.BoardGame.domain.Seller;
 import bupt.ee.BoardGame.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
