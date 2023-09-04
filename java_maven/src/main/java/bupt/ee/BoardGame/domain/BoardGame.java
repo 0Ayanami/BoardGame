@@ -25,7 +25,6 @@ public class BoardGame implements Serializable {
     private int cid;//所属分类，必输
     private String bimage;//缩略图
 
-    private String sourceId;//抓取数据的来源id
 
     //非BoardGame表中的字段，而是关联其他表后返回的字段
     //这些所有字段组合在一起，构成了实体类BoardGame
@@ -54,7 +53,6 @@ public class BoardGame implements Serializable {
      * @param count
      * @param cid
      * @param bimage
-     * @param sourceId
      */
 
     public BoardGame(int bid, String bname, double price, String gameIntroduce, int count, double score, int pnumber, String ptime, int level, int cid, String bimage, String sourceId) {
@@ -69,7 +67,22 @@ public class BoardGame implements Serializable {
         this.level = level;
         this.cid = cid;
         this.bimage = bimage;
-        this.sourceId = sourceId;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<BoardGameImg> getBoardGameImgList() {
+        return boardGameImgList;
+    }
+
+    public void setBoardGameImgList(List<BoardGameImg> boardGameImgList) {
+        this.boardGameImgList = boardGameImgList;
     }
 
     public int getBid() {
@@ -160,27 +173,4 @@ public class BoardGame implements Serializable {
         this.bimage = bimage;
     }
 
-    public String getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public List<BoardGameImg> getBoardGameImgList() {
-        return boardGameImgList;
-    }
-
-    public void setBoardGameImgList(List<BoardGameImg> boardGameImgList) {
-        this.boardGameImgList = boardGameImgList;
-    }
 }

@@ -49,6 +49,11 @@ public class MarkDaoImpl implements MarkDao {
     @Override
     public void add(int bid, int score, int uid) {
         String sql = " insert into mark values(?,?,?) ";
-        template.update(sql,bid,score,uid);
+        String sql_ = " update into mark values(?,?,?) ";
+        try {
+            template.update(sql_, bid, uid, score);
+        }catch (DataAccessException e){
+            template.update(sql, bid, uid, score);
+        }
     }
 }

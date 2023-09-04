@@ -68,7 +68,9 @@ public class BoardGameDaoImpl implements BoardGameDao {
 
             params.add("%"+bname+"%");
         }
+        sb.append(" order by score  ");//完成排序
         sb.append(" limit ? , ?  ");//完成分页条件
+
         sql = sb.toString();
 
         params.add(start);

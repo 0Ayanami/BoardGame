@@ -1,5 +1,6 @@
 package bupt.ee.BoardGame.web.servlet;
 
+import bupt.ee.BoardGame.domain.Mark;
 import bupt.ee.BoardGame.domain.PageBean;
 import bupt.ee.BoardGame.domain.BoardGame;
 import bupt.ee.BoardGame.domain.User;
@@ -20,7 +21,9 @@ public class BoardGameServlet extends BaseServlet {
     private MarkService markService = new MarkServiceImpl();
 
     /**
-     * 分页查询
+     * 商品页面展示
+     * 1）用输入框进行搜索时调用该方法可以显示所有名称包含搜索词的商品
+     * 2）点击商品类别时可以通过cid显示所有该类别的商品
      * @param request
      * @param response
      * @throws ServletException
@@ -42,8 +45,6 @@ public class BoardGameServlet extends BaseServlet {
             //此步骤出错：bname没有值为null,转码错误
             bname = new String(bname.getBytes("iso-8859-1"), "utf-8");
         }
-
-
 
         //处理参数
         //注意，此时前台有可能传递一个cid的值，就为null，也要进行排除掉
@@ -73,6 +74,7 @@ public class BoardGameServlet extends BaseServlet {
 
     /**
      * 根据bid查询一个桌游的详细信息
+     * 用于展示商品的详细页面
      * @param request
      * @param response
      * @throws ServletException
@@ -107,22 +109,22 @@ public class BoardGameServlet extends BaseServlet {
             //用户已经登录
             uid = user.getUid();
         }
-        //调用MarkServlet查询是否收藏该线路
-        boolean flag = markService.isMark(bid, uid);
-        //将flag写回客户端
-        writeValue(flag,response);
-
+        //调用MarkServlet查询是否评分过该商品
+        Mark mark = markService.myMark(bid, uid);
+        //将mark写回客户端
+        writeValue(mark,response);
+        //若该用户还未打分则mark返回为空
     }
 
     /**
-     * 添加收藏
+     * 评分
      * @param request
      * @param response
      * @throws ServletException
      * @throws IOException
      */
     public void addMark(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //获取线路rid
+        //获取线路bid
         String bid = request.getParameter("bid");
         //获取当前登录的用户
         User user = (User) request.getSession().getAttribute("user");
@@ -136,8 +138,6 @@ public class BoardGameServlet extends BaseServlet {
             uid = user.getUid();
         }
         //调用service添加
-        markService.add(bid,score, uid);
+        markService.add(bid, score, uid);
     }
-
-
 }

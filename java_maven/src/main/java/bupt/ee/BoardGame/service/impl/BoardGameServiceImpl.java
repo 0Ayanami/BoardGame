@@ -15,9 +15,9 @@ import java.util.List;
 
 public class BoardGameServiceImpl implements BoardGameService {
 
-    private BoardGameDao BoardGameDao = new BoardGameDaoImpl();
+    private BoardGameDao boardgameDao = new BoardGameDaoImpl();
 
-    private BoardGameImgDao BoardGameImgDao = new BoardGameImgDaoImpl();
+    private BoardGameImgDao boardgameImgDao = new BoardGameImgDaoImpl();
 
     private MarkDao markDao = new MarkDaoImpl();
 
@@ -40,12 +40,12 @@ public class BoardGameServiceImpl implements BoardGameService {
         pb.setPageSize(pageSize);
 
         //设置总记录数
-        int totalCount = BoardGameDao.findTotalCount(cid,bname);
+        int totalCount = boardgameDao.findTotalCount(cid,bname);
         pb.setTotalCount(totalCount);
 
         //设置当前页显示的数据集合
         int start = (currentPage - 1) * pageSize;//开始的记录数
-        List<BoardGame> list = BoardGameDao.findByPage(cid, start, pageSize,bname);
+        List<BoardGame> list = boardgameDao.findByPage(cid, start, pageSize,bname);
         pb.setList(list);
 
         //设置总页数 = 总记录数/每页显示条数
@@ -63,18 +63,16 @@ public class BoardGameServiceImpl implements BoardGameService {
     @Override
     public BoardGame findOne(String bid) {
         //根据bid去BoardGame表中查询BoardGame对象
-        BoardGame BoardGame = BoardGameDao.findOne(Integer.parseInt(bid));
+        BoardGame boardgame = boardgameDao.findOne(Integer.parseInt(bid));
         //根据BoardGame的bid去查询图片集合信息（关联图片表）
-        List<BoardGameImg> BoardGameImgs = BoardGameImgDao.findByBid(BoardGame.getBid());
+        List<BoardGameImg> boardgameImgs = boardgameImgDao.findByBid(boardgame.getBid());
         //将集合设置到BoardGame对象
-        BoardGame.setBoardGameImgList(BoardGameImgs);
+        boardgame.setBoardGameImgList(boardgameImgs);
+        //查询桌游评分
+        int score = markDao.findScoreByBid(boardgame.getBid());
+        boardgame.setScore(score);
 
-        //查询收藏次数
-        int count = markDao.findScoreByBid(BoardGame.getBid());
-        BoardGame.setCount(count);
-
-        return BoardGame;
-
+        return boardgame;
     }
 
 

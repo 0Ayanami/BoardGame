@@ -16,10 +16,9 @@ public class MarkServiceImpl implements MarkService {
      * @return
      */
     @Override
-    public boolean isMark(String bid, int uid) {
-
+    public Mark myMark(String bid, int uid) {
         Mark mark = markDao.findByBidAndUid(Integer.parseInt(bid), uid);
-        return mark != null;//如果有返回对象，则为true
+        return mark;
     }
 
     /**
@@ -31,6 +30,4 @@ public class MarkServiceImpl implements MarkService {
     public void add(String bid, int score, int uid) {
         markDao.add(Integer.parseInt(bid),score, uid);
     }
-
-
 }

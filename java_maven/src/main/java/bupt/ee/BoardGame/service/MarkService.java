@@ -1,5 +1,7 @@
 package bupt.ee.BoardGame.service;
 
+import bupt.ee.BoardGame.domain.Mark;
+
 public interface MarkService {
     /**
      * 判断是否打分
@@ -7,7 +9,7 @@ public interface MarkService {
      * @param uid
      * @return
      */
-    public boolean isMark(String bid,int uid);
+    public Mark myMark(String bid, int uid);
 
     /**
      * 打分
