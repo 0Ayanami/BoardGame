@@ -14,7 +14,6 @@ public class BoardGame implements Serializable {
     private double price;//价格，必输
     private String gameIntroduce;//游戏介绍
     private int count;//销售数量
-
     private double score;//桌游评分，满分10分
 
     private int pnumber;//游玩人数
@@ -31,6 +30,8 @@ public class BoardGame implements Serializable {
     private Category category;//所属分类
 
     private List<BoardGameImg> boardGameImgList;//商品详情图片列表
+
+    private List<Comment> commentList;//商品详情评论
 
 
     /**
@@ -67,6 +68,14 @@ public class BoardGame implements Serializable {
         this.level = level;
         this.cid = cid;
         this.bimage = bimage;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public Category getCategory() {

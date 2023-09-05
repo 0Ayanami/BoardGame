@@ -1,13 +1,8 @@
 package bupt.ee.BoardGame.service.impl;
 
-import bupt.ee.BoardGame.dao.MarkDao;
-import bupt.ee.BoardGame.dao.BoardGameDao;
-import bupt.ee.BoardGame.dao.BoardGameImgDao;
-import bupt.ee.BoardGame.dao.PurchaseDao;
-import bupt.ee.BoardGame.dao.impl.MarkDaoImpl;
-import bupt.ee.BoardGame.dao.impl.BoardGameDaoImpl;
-import bupt.ee.BoardGame.dao.impl.BoardGameImgDaoImpl;
-import bupt.ee.BoardGame.dao.impl.PurchaseDaoImpl;
+import bupt.ee.BoardGame.dao.*;
+import bupt.ee.BoardGame.dao.impl.*;
+import bupt.ee.BoardGame.domain.Comment;
 import bupt.ee.BoardGame.domain.PageBean;
 import bupt.ee.BoardGame.domain.BoardGame;
 import bupt.ee.BoardGame.domain.BoardGameImg;
@@ -24,6 +19,8 @@ public class BoardGameServiceImpl implements BoardGameService {
     private MarkDao markDao = new MarkDaoImpl();
 
     private PurchaseDao purchaseDao = new PurchaseDaoImpl();
+
+    private CommentDao commentDao = new CommentDaoImpl();
 
     /**
      * 根据类别进行分页查询
@@ -70,8 +67,11 @@ public class BoardGameServiceImpl implements BoardGameService {
         BoardGame boardgame = boardgameDao.findOne(Integer.parseInt(bid));
         //根据BoardGame的bid去查询图片集合信息（关联图片表）
         List<BoardGameImg> boardgameImgs = boardgameImgDao.findByBid(boardgame.getBid());
+        //根据BoardGame的bid去查群评论集合
+        List<Comment> commentList = commentDao.findByBid(boardgame.getBid());
         //将集合设置到BoardGame对象
         boardgame.setBoardGameImgList(boardgameImgs);
+        boardgame.setCommentList(commentList);
         //查询桌游评分
         int score = markDao.findScoreByBid(boardgame.getBid());
         boardgame.setScore(score);
