@@ -84,4 +84,16 @@ public class User implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

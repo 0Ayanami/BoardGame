@@ -61,5 +61,14 @@ public class ResultInfo implements Serializable {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
+
+    @Override
+    public String toString() {
+        return "ResultInfo{" +
+                "flag=" + flag +
+                ", data=" + data +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
 }
 

@@ -62,4 +62,14 @@ public class BoardGameImg implements Serializable {
     public void setSmallPic(String smallPic) {
         this.smallPic = smallPic;
     }
+
+    @Override
+    public String toString() {
+        return "BoardGameImg{" +
+                "bpid=" + bpid +
+                ", bid=" + bid +
+                ", bigPic='" + bigPic + '\'' +
+                ", smallPic='" + smallPic + '\'' +
+                '}';
+    }
 }

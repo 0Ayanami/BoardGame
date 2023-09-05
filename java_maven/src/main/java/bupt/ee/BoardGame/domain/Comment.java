@@ -53,4 +53,13 @@ public class Comment implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "boardgame=" + boardgame +
+                ", comment='" + comment + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

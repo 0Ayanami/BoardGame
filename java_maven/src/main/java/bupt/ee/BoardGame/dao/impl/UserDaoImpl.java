@@ -40,10 +40,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User user) {
         //定义sql
-        String sql = "insert into user(username,password,email,status,code)" +
-                "values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user(username,uid, password,email,status,code)" +
+                "values(?,?,?,?,?,?)";
         //执行sql
         template.update(sql, user.getUsername(),
+                user.getUid(),
                 user.getPassword(),
                 user.getEmail(),
                 user.getStatus(),

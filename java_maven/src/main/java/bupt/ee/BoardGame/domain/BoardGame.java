@@ -182,4 +182,23 @@ public class BoardGame implements Serializable {
         this.bimage = bimage;
     }
 
+    @Override
+    public String toString() {
+        return "BoardGame{" +
+                "bid=" + bid +
+                ", bname='" + bname + '\'' +
+                ", price=" + price +
+                ", gameIntroduce='" + gameIntroduce + '\'' +
+                ", count=" + count +
+                ", score=" + score +
+                ", pnumber=" + pnumber +
+                ", ptime='" + ptime + '\'' +
+                ", level=" + level +
+                ", cid=" + cid +
+                ", bimage='" + bimage + '\'' +
+                ", category=" + category +
+                ", boardGameImgList=" + boardGameImgList +
+                ", commentList=" + commentList +
+                '}';
+    }
 }
