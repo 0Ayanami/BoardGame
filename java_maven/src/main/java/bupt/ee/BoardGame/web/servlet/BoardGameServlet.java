@@ -6,8 +6,10 @@ import bupt.ee.BoardGame.domain.BoardGame;
 import bupt.ee.BoardGame.domain.User;
 import bupt.ee.BoardGame.service.MarkService;
 import bupt.ee.BoardGame.service.BoardGameService;
+import bupt.ee.BoardGame.service.PurchaseService;
 import bupt.ee.BoardGame.service.impl.MarkServiceImpl;
 import bupt.ee.BoardGame.service.impl.BoardGameServiceImpl;
+import bupt.ee.BoardGame.service.impl.PurchaseServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,8 @@ import java.io.IOException;
 public class BoardGameServlet extends BaseServlet {
     private BoardGameService boardGameService = new BoardGameServiceImpl();
     private MarkService markService = new MarkServiceImpl();
+
+    private PurchaseService purchaseService = new PurchaseServiceImpl();
 
     /**
      * 商品页面展示
@@ -139,5 +143,22 @@ public class BoardGameServlet extends BaseServlet {
         }
         //调用service添加
         markService.add(bid, score, uid);
+    }
+
+    public void purchase(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取线路bid
+        String bid = request.getParameter("bid");
+        //获取当前登录的用户
+        User user = (User) request.getSession().getAttribute("user");
+        int uid;//用户id
+        if (user == null){
+            //用户尚未登录,直接返回，前台没有数据，也可做判断
+            return;
+        }else {
+            //用户已经登录
+            uid = user.getUid();
+        }
+        //调用service添加
+        purchaseService.buy(bid);
     }
 }

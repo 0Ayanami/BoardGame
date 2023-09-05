@@ -14,7 +14,7 @@ public class BoardGameImgDaoImpl implements BoardGameImgDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
-     * 通过route的rid查询图片
+     * 通过boardgame的bid查询图片
      * @return
      */
     @Override

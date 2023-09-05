@@ -3,9 +3,11 @@ package bupt.ee.BoardGame.service.impl;
 import bupt.ee.BoardGame.dao.MarkDao;
 import bupt.ee.BoardGame.dao.BoardGameDao;
 import bupt.ee.BoardGame.dao.BoardGameImgDao;
+import bupt.ee.BoardGame.dao.PurchaseDao;
 import bupt.ee.BoardGame.dao.impl.MarkDaoImpl;
 import bupt.ee.BoardGame.dao.impl.BoardGameDaoImpl;
 import bupt.ee.BoardGame.dao.impl.BoardGameImgDaoImpl;
+import bupt.ee.BoardGame.dao.impl.PurchaseDaoImpl;
 import bupt.ee.BoardGame.domain.PageBean;
 import bupt.ee.BoardGame.domain.BoardGame;
 import bupt.ee.BoardGame.domain.BoardGameImg;
@@ -20,6 +22,8 @@ public class BoardGameServiceImpl implements BoardGameService {
     private BoardGameImgDao boardgameImgDao = new BoardGameImgDaoImpl();
 
     private MarkDao markDao = new MarkDaoImpl();
+
+    private PurchaseDao purchaseDao = new PurchaseDaoImpl();
 
     /**
      * 根据类别进行分页查询
@@ -71,6 +75,9 @@ public class BoardGameServiceImpl implements BoardGameService {
         //查询桌游评分
         int score = markDao.findScoreByBid(boardgame.getBid());
         boardgame.setScore(score);
+        //查看桌游的销量
+        int count = purchaseDao.findCountByBid(boardgame.getBid());
+        boardgame.setCount(count);
 
         return boardgame;
     }
