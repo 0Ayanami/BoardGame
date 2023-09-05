@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>桌游极客</title>
+    <title>桌游极客-登录页</title>
     <style type="text/css">
         header{
             width: 100%;
@@ -72,11 +72,24 @@
         <input type="text" value="请输入密码" onfocus="javascript:if(this.value=='请输入密码')this.value=''" onblur="if(!value)value='请输入密码'" name="keyword" style="width: 270px;height: 20px;border-radius: 10px">
         </div>
         <div style="text-align:center;line-height:100px">
-        <button style="width: 120px;height: 50px;border-radius: 10px;background-color: #3f94e3;color: aliceblue;font-size: 20pt">登录</button>
-        <button style="width: 120px;height: 50px;border-radius: 10px;background-color: #3f94e3;color: aliceblue;font-size: 20pt;margin-left: 30px">注册</button>
+        <button id="login" style="width: 120px;height: 50px;border-radius: 10px;background-color: #3f94e3;color: aliceblue;font-size: 20pt">登录</button>
+        <button id="register" style="width: 120px;height: 50px;border-radius: 10px;background-color: #3f94e3;color: aliceblue;font-size: 20pt;margin-left: 30px">注册</button>
             <br/>
         </div>
     </div>
 </div>
 </body>
+<script>
+    //点击登录跳转到主页
+    var login_ = document.getElementById('login');
+    login_.onclick = function () {
+        location.href = "首页.html"
+    };
+
+    //点击注册跳转到注册页
+    var register_ = document.getElementById('register');
+    register_.onclick = function () {
+        location.href = "注册.html"
+    };
+</script>
 </html>
