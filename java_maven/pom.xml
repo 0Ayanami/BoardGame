@@ -163,7 +163,7 @@
                     <!--修改tomcat启动的端口号-->
                     <port>80</port>
                     <!--修改tomcat部署当前项目的虚拟目录-->
-                    <path>/boardgame</path>
+                    <path>/</path>
                 </configuration>
             </plugin>
         </plugins>

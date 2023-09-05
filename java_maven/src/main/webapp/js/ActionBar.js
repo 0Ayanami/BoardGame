@@ -5,12 +5,12 @@ logout_.onclick = function () {
 
 var rank_ = document.getElementById("rank");
 rank_.onclick = function () {
-    location.href = "../排行榜.html"
+    location.href = "../rank.html"
 };
 
 var store_ = document.getElementById("store");
 store_.onclick = function () {
-    location.href = "../购买页.html"
+    location.href = "../store.html"
 };
 
 var home_ = document.getElementById("home");

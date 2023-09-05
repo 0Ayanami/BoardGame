@@ -7,7 +7,7 @@ for (let i = 0; i < p1_s.length; i++) {
     }
     //将文章1的图片、标题设置为点击时将当前页面url设置为指定文章位置
     p1_.onclick = function () {
-        location.href = "文章1.html";
+        location.href = "post1.html";
     }
 }
 
@@ -18,7 +18,7 @@ for (let i = 0; i < p2_s.length; i++) {
         p2_.style.cursor = 'pointer';
     }
     p2_.onclick = function () {
-        location.href = "文章2.html";
+        location.href = "post2.html";
     }
 }
 
@@ -29,7 +29,7 @@ for (let i = 0; i < p3_s.length; i++) {
         p3_.style.cursor = 'pointer';
     }
     p3_.onclick = function () {
-        location.href = "文章3.html";
+        location.href = "post3.html";
     }
 }
 
@@ -40,6 +40,6 @@ for (let i = 0; i < p4_s.length; i++) {
         p4_.style.cursor = 'pointer';
     }
     p4_.onclick = function () {
-        location.href = "文章4.html";
+        location.href = "post4.html";
     }
 }
