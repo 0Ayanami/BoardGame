@@ -73,7 +73,7 @@ public class BoardGameServiceImpl implements BoardGameService {
         boardgame.setBoardGameImgList(boardgameImgs);
         boardgame.setCommentList(commentList);
         //查询桌游评分
-        int score = markDao.findScoreByBid(boardgame.getBid());
+        int score = boardgame.getBid();
         boardgame.setScore(score);
         //查看桌游的销量
         int count = purchaseDao.findCountByBid(boardgame.getBid());

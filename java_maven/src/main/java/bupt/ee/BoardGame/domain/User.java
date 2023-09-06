@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * 用户实体类
  */
+
 public class User implements Serializable {
     private int uid;//用户id
     private String username;//用户名，账号
@@ -28,7 +29,7 @@ public class User implements Serializable {
      * @param status
      * @param code
      */
-    public User(int uid, String username, String password, String name, String birthday, String sex, String telephone, String email, String status, String code) {
+    public User(int uid, String username, String password, String email, String status, String code) {
         this.uid = uid;
         this.username = username;
         this.password = password;
@@ -96,4 +97,6 @@ public class User implements Serializable {
                 ", code='" + code + '\'' +
                 '}';
     }
+
+
 }

@@ -4,6 +4,7 @@ import bupt.ee.BoardGame.domain.Mark;
 
 public interface MarkService {
     /**
+     * check
      * 判断是否打分
      * @param bid
      * @param uid
@@ -12,6 +13,7 @@ public interface MarkService {
     public Mark myMark(String bid, int uid);
 
     /**
+     * check
      * 打分
      * @param bid
      * @param uid

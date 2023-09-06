@@ -11,12 +11,6 @@ public interface MarkDao {
      */
     public Mark findByBidAndUid(int bid,int uid);
 
-    /**
-     * 查看桌游的分数
-     * @param bid
-     * @return
-     */
-    public int findScoreByBid(int bid);
 
     /**
      * 打分

@@ -22,6 +22,5 @@ public class CategoryDaoImpl implements CategoryDao {
         String sql = "select * from category";
         //执行sql语句
         return template.query(sql, new BeanPropertyRowMapper<Category>(Category.class));
-
     }
 }

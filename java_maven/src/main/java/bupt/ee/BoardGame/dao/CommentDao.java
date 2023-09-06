@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CommentDao {
     /**
+     * check
      *添加评论
      * @param bid
      * @param comment
@@ -15,6 +16,7 @@ public interface CommentDao {
     public void addComment(int bid, String comment, int uid);
 
     /**
+     * check
      * 根据bid返回某商品的所有评论集合
      * @param bid
      * @return

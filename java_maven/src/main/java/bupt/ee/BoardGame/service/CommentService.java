@@ -4,6 +4,7 @@ import bupt.ee.BoardGame.domain.Comment;
 
 public interface CommentService {
     /**
+     * check
      * 添加评论
      * @param bid
      * @param comment

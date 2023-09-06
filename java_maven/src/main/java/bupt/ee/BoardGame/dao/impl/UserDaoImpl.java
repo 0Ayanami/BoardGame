@@ -40,11 +40,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User user) {
         //定义sql
-        String sql = "insert into user(username,uid, password,email,status,code)" +
+        String sql = "insert into user " +
                 "values(?,?,?,?,?,?)";
         //执行sql
-        template.update(sql, user.getUsername(),
-                user.getUid(),
+        template.update(sql,user.getUid(), user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),
                 user.getStatus(),
@@ -53,6 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     }
     /**
+     * check
      * 根据用户激活码查询用户对象
      * @param code
      * @return
@@ -98,6 +98,14 @@ public class UserDaoImpl implements UserDao {
             // 也就是提前做了即使是异常该怎么解决的代码逻辑
             // e.printStackTrace();
         }
+        return user;
+    }
+
+    @Override
+    public User findByUid(int uid) {
+        User user = null;
+        String sql = "select * from user where uid = ?";
+        user = template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),uid);
         return user;
     }
 }

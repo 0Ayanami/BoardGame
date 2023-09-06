@@ -7,8 +7,11 @@ import java.util.List;
 public interface CategoryDao {
 
     /**
+     * check
      * 查询所有
      * @return
      */
-    public List<Category> findAll();
+    List<Category> findAll();
+
+
 }

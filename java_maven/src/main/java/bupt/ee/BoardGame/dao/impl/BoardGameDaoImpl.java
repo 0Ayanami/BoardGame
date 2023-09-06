@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BoardGameDaoImpl implements BoardGameDao {
 
@@ -89,4 +90,12 @@ public class BoardGameDaoImpl implements BoardGameDao {
         String sql = "select * from boardgame where bid = ? ";
         return template.queryForObject(sql,new BeanPropertyRowMapper<BoardGame>(BoardGame.class),bid);
     }
+
+    @Override
+    public List<Map<String, Object>> findAll() {
+        String sql = "select * from boardgame";
+        return template.queryForList(sql,new BeanPropertyRowMapper<BoardGame>(BoardGame.class));
+    }
+
+
 }

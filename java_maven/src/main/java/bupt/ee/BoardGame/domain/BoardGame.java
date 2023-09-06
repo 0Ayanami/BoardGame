@@ -16,7 +16,7 @@ public class BoardGame implements Serializable {
     private int count;//销售数量
     private double score;//桌游评分，满分10分
 
-    private int pnumber;//游玩人数
+    private String pnumber;//游玩人数
 
     private String ptime;//建议时间,单位分钟
 
@@ -56,7 +56,7 @@ public class BoardGame implements Serializable {
      * @param bimage
      */
 
-    public BoardGame(int bid, String bname, double price, String gameIntroduce, int count, double score, int pnumber, String ptime, int level, int cid, String bimage, String sourceId) {
+    public BoardGame(int bid, String bname, double price, String gameIntroduce, int count, double score, String pnumber, String ptime, int level, int cid, String bimage, String sourceId) {
         this.bid = bid;
         this.bname = bname;
         this.price = price;
@@ -142,11 +142,11 @@ public class BoardGame implements Serializable {
         this.score = score;
     }
 
-    public int getPnumber() {
+    public String getPnumber() {
         return pnumber;
     }
 
-    public void setPnumber(int pnumber) {
+    public void setPnumber(String pnumber) {
         this.pnumber = pnumber;
     }
 
@@ -196,9 +196,7 @@ public class BoardGame implements Serializable {
                 ", level=" + level +
                 ", cid=" + cid +
                 ", bimage='" + bimage + '\'' +
-                ", category=" + category +
-                ", boardGameImgList=" + boardGameImgList +
-                ", commentList=" + commentList +
+
                 '}';
     }
 }

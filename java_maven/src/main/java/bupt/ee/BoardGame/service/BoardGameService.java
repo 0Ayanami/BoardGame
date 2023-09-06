@@ -8,6 +8,7 @@ import bupt.ee.BoardGame.domain.BoardGame;
  */
 public interface BoardGameService {
     /**
+     * check
      * 根据类别进行分页查询
      * @param cid
      * @param currentPage

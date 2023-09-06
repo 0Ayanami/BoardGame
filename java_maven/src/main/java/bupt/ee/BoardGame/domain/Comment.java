@@ -6,10 +6,10 @@ import java.io.Serializable;
  * 评论类
  */
 public class Comment implements Serializable {
-    private BoardGame boardgame;//桌游对象
+    private int bid;//桌游对象
 
     private String comment;//评论
-
+    private int uid;
     private User user;//评论用户
 
     /**
@@ -17,25 +17,33 @@ public class Comment implements Serializable {
      */
     public Comment() {
     }
-
     /**
      * 有参构造方法
-     * @param boardgame
+     * @param bid
      * @param comment
-     * @param user
+     * @param uid
      */
-    public Comment(BoardGame boardgame, String comment, User user) {
-        this.boardgame = boardgame;
+    public Comment(int bid, String comment, int uid) {
+        this.bid = bid;
         this.comment = comment;
-        this.user = user;
+        this.uid = uid;
     }
 
-    public BoardGame getBoardgame() {
-        return boardgame;
+
+    public int getBid() {
+        return bid;
     }
 
-    public void setBoardgame(BoardGame boardgame) {
-        this.boardgame = boardgame;
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getComment() {
@@ -57,9 +65,9 @@ public class Comment implements Serializable {
     @Override
     public String toString() {
         return "Comment{" +
-                "boardgame=" + boardgame +
+                "bid=" + bid +
                 ", comment='" + comment + '\'' +
-                ", user=" + user +
+                ", uid=" + uid +
                 '}';
     }
 }
