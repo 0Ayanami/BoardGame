@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>极客桌游-搜索</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/search.css">
+    <script src="js/jquery-3.3.1.js"></script>
+
+    <script src="js/getParameter.js">
+        //导入实现uri切割的包
+    </script>
+    <script>
+        $(function () {
+            /*//该方法获取当前的url
+            var search = location.search;//http://localhost/travel/route_list.html?cid=5
+            //alert(search);
+            //切割字符串，拿到第二个值
+            var cid = search.split("=")[1];//5*/
+
+            //使用替代的方法，直接完成上面的效果
+            //获取cid的参数值
+            var cid = getParameter("cid");
+            //获取rname的参数值
+            var bname = getParameter("bname");
+            //注意：uri加密，http://localhost/travel/route_list.html?cid=5&rname=%E5%85%B5%E9%A9%AC%E4%BF%91
+            //判断rname如果不为null或者""
+            if (bname){
+                //url解码，对传递的url中的中文进行解码
+                bname = window.decodeURIComponent(bname);
+            }
+
+            //当页码加载完成后，调用load方法，发送Ajax请求加载数据
+            load(cid,null,bname);//第一次请求，没有当前页码数，使用后台默认的当前页码数1
+
+        });
+        //抽取出来，以后可以自己调用自己
+        //这三个参数有的是从其他页面的点击事件传过来的，有的是从搜索框传过来的，
+        //有的是一开始没有有值，传递一个空值过去，系统返回一个定义的值
+        //最终这三个值都通过get请求，从url传递到后台
+        function load(cid,currentPage,bname) {
+            //发送Ajax请求，请求route/pageQuery,传递cid，旅游大类
+            $.get("boardgame/pageQuery",{cid:cid,currentPage:currentPage,bname:bname},function (pb) {
+
+                /*
+                <li><a href="">首页</a></li>
+                <li class="threeword"><a href="#">上一页</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li class="threeword"><a href="javascript:;">下一页</a></li>
+                <li class="threeword"><a href="javascript:;">末页</a></li>
+                 */
+                //解析pagebean数据，展示到页面上
+                //1.分页工具条数据展示
+                //1.1展示总页码和总记录数
+                $("#totalPage").html(pb.totalPage);
+                $("#totalCount").html(pb.totalCount);
+
+                var lis = "";
+                //注意传递中文需要加引号：'西安'，字符串拼接的时候对'需要加转义字符\,即是\'
+                var firstPage = '<li onclick="javascript:load('+cid+',1,\''+bname+'\')"><a href="javascript:(0);">首页</a></li>';
+                //计算上一页的页码
+                var beforeNum = pb.currentPage-1;
+                if (beforeNum <= 0){
+                    beforeNum = 1;
+                }
+                var beforePage = '<li class="threeword" onclick="javascript:load('+cid+','+beforeNum+',\''+bname+'\')"><a href="javascript:(0)">上一页</a></li>';
+
+                lis += firstPage;
+                lis += beforePage;
+
+                //1.2展示分页页码
+                /*
+                    1.一共显示10个页码，能够达到前五后四的效果
+                    2.如果前边不够5个，后边补齐到10个
+                    3.如果后边不够4个，前边补齐到10个
+                 */
+                //定义开始位置begin，结束位置end
+                var begin;//开始位置
+                var end;//结束位置
+
+                //1.要显示10个页码
+                if (pb.totalPage < 10){
+                    //总页码不够10页
+                    begin = 1;
+                    end = pb.totalPage;
+                }else {
+                    //总页码超过10页
+                    begin = pb.currentPage - 5;
+                    end = pb.currentPage + 4;
+                    //2.如果前边不够五个，后面补齐10个
+                    if (begin < 1){
+                        begin = 1;
+                        end = begin + 9;
+                    }
+                    //3.如果后面不足4个，前面补齐10个
+                    if (end > pb.totalPage){
+                        end = pb.totalPage;
+                        begin = end - 9;
+                    }
+                }
+
+                for (var i=begin;i<=end;i++){
+                    var li;
+                    if (pb.currentPage == i){
+                        //判断当前页码是否等于i
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+bname+'\')"><a href="javascript:(0)">'+i+'</a></li>';
+                    }else {
+                        //创建页码的li
+                        //因为页面跳转，实现Ajax异步的请求，这儿需要修改，a标签的链接不能写死
+                        li = '<li onclick="javascript:load('+cid+','+i+')"><a href="javascript:(0)">'+i+'</a></li>';
+                    }
+                    //拼接字符串
+                    lis += li;
+                }
+
+                /*for (var i = 1; i <= pb.totalPage ; i++) {
+                    var li;
+                    if (pb.currentPage == i){
+                        //判断当前页码是否等于i
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+')"><a href="javascript:(0)">'+i+'</a></li>';
+                    }else {
+                        //创建页码的li
+                        //因为页面跳转，实现Ajax异步的请求，这儿需要修改，a标签的链接不能写死
+                        li = '<li onclick="javascript:load('+cid+','+i+')"><a href="javascript:(0)">'+i+'</a></li>';
+                    }
+                    //拼接字符串
+                    lis += li;
+                }*/
+                //计算下一页的页码
+                var afterNum = pb.currentPage+1;
+                if (afterNum >= pb.totalPage){
+                    afterNum = pb.totalPage;
+                }
+                var afterPage = '<li class="threeword" onclick="javascript:load('+cid+','+afterNum+',\''+bname+'\')"><a href="javascript:(0);">下一页</a></li>';
+                var endPage = '<li class="threeword" onclick="javascript:load('+cid+','+pb.totalPage+',\''+bname+'\')"><a href="javascript:(0);">末页</a></li>';
+
+                lis += afterPage;
+                lis += endPage;
+
+                //将lis内容设置到ul
+                $("#pageNum").html(lis);
+
+                //2.列表数据展示
+                var route_lis = "";
+
+                for (var i = 0; i <pb.list.length ; i++) {
+                    //[{:,:,:},{},...]
+                    var boardgame = pb.list[i];
+                    var li = '<li>\n' +
+                        '                            <div class="img"><img src="'+boardgame.bimage+'"style="width: 299px;""></div>\n' +
+                        '                            <div class="text1">\n' +
+                        '                                <p>'+boardgame.bname+'</p>\n' +
+                        '                                <br/>\n' +
+                        '                                <p>'+boardgame.gameIntroduce+'</p>\n' +
+                        '                            </div>\n' +
+                        '                            <div class="price">\n' +
+                        '                                <p class="price_num">\n' +
+                        '                                    <span>&yen;</span>\n' +
+                        '                                    <span>'+boardgame.price+'</span>\n' +
+                        '                                    <span>起</span>\n' +
+                        '                                </p>\n' +
+
+                            //此处传递这条线路的rid到后台（rid-表示所属线路，cid-表示该线路所属分类）
+                            //后面servlet会通过传递过来的rid，对多张表进行查询，再将需要的信息反馈回route_detil.html中
+
+                        '                                <p><a href="detail.html?bid='+boardgame.bid+'">查看详情</a></p>\n' +
+                        '                            </div>\n' +
+                        '                        </li>';
+
+                    route_lis += li;
+                }
+                //将route_lis内容设置到ul
+                $("#route").html(route_lis);
+
+                //定位到页面顶部
+                //每次调用load方法就会执行该语句
+                window.scrollTo(0,0);
+            });
+        }
+
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+    <div class="page_one">
+        <div class="contant">
+            <div class="crumbs">
+                <img src="images/search.png" alt="">
+                <p>极客桌游><span>搜索结果</span></p>
+            </div>
+            <div class="xinxi clearfix">
+                <div class="left">
+                    <div class="header">
+                        <span>桌游信息</span>
+                        <span class="jg">价格</span>
+                    </div>
+                    <ul id="route">
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>299</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>899</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>999</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>99</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>199</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>899</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>1199</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p></p>
+                                <br/>
+                                <p></p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>1589</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="page_num_inf">
+                        <i></i> 共
+                        <span id="totalPage">12</span>页<span id="totalCount">132</span>条
+                    </div>
+                    <div class="pageNum">
+                        <ul id="pageNum">
+                            <li><a href="">首页</a></li>
+                            <li class="threeword"><a href="#">上一页</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">6</a></li>
+                            <li><a href="#">7</a></li>
+                            <li><a href="#">8</a></li>
+                            <li><a href="#">9</a></li>
+                            <li><a href="#">10</a></li>
+                            <li class="threeword"><a href="javascript:;">下一页</a></li>
+                            <li class="threeword"><a href="javascript:;">末页</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="top">
+                        <div class="hot">HOT</div>
+                        <span>热门推荐</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p></p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p></p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p></p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p></p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p></p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--引入头部-->
+    <div id="footer"></div>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+</body>
+
+</html>
