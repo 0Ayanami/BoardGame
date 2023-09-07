@@ -18,5 +18,5 @@ public interface MarkService {
      * @param bid
      * @param uid
      */
-    public void add(String bid, int score, int uid);
+    public void add(String bid, String score, int uid);
 }

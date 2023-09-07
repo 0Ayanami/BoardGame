@@ -72,7 +72,7 @@ public class BoardGameServlet extends BaseServlet {
             pageSize = 6;
         }
         //调用service查询PageBean对象
-        PageBean<BoardGame> pb = boardGameService.PageQuery(cid, currentPage, pageSize,bname);
+        PageBean<BoardGame> pb = boardGameService.PageQuery(cid, currentPage, pageSize, bname);
         //将PageBean对象序列化为json，返回
         writeValue(pb,response);
     }
@@ -133,7 +133,7 @@ public class BoardGameServlet extends BaseServlet {
         String bid = request.getParameter("bid");
         //获取当前登录的用户
         User user = (User) request.getSession().getAttribute("user");
-        int score = 0;//从前台获取用户打分分数
+        String score = request.getParameter("score");//从前台获取用户打分分数
         int uid;//用户id
         if (user == null){
             //用户尚未登录,直接返回，前台没有数据，也可做判断
@@ -154,7 +154,7 @@ public class BoardGameServlet extends BaseServlet {
      * @throws IOException
      */
     public void purchase(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //获取线路bid
+        //获取线路bid登录 注册欢迎回来，undefined 极客购物 退出
         String bid = request.getParameter("bid");
         //获取当前登录的用户
         User user = (User) request.getSession().getAttribute("user");

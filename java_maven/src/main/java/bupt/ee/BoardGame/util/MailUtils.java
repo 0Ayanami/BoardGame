@@ -10,11 +10,10 @@ import java.util.Properties;
  */
 public final class MailUtils {
     //该代码的意思是，通过这个公司的发件人，给下面方法的用户去发送内容
-    private static final String USER = ""; // 发件人称号，同邮箱地址
-    private static final String PASSWORD = ""; // 如果是qq邮箱可以使户端授权码，或者登录密码
+    private static final String USER = "1359933802@qq.com"; // 发件人称号，同邮箱地址
+    private static final String PASSWORD = "jriyftmhhkmmhgbh"; // 如果是qq邮箱可以使户端授权码，或者登录密码
 
     /**
-     *
      * @param to 收件人邮箱
      * @param text 邮件正文
      * @param title 标题
@@ -69,10 +68,8 @@ public final class MailUtils {
     }
 
     public static void main(String[] args) throws Exception { // 做测试用
-        MailUtils.sendMail("1359933802@qq.com","你好，这是一封测试邮件，无需回复。","测试邮件");
+        MailUtils.sendMail("379424338@qq.com","你好，这是一封测试邮件，无需回复。","测试邮件");
         System.out.println("发送成功");
     }
-
-
 
 }

@@ -27,7 +27,7 @@ public class MarkServiceImpl implements MarkService {
      * @param uid
      */
     @Override
-    public void add(String bid, int score, int uid) {
-        markDao.add(Integer.parseInt(bid),score, uid);
+    public void add(String bid, String score, int uid) {
+        markDao.add(Integer.parseInt(bid),Integer.parseInt(score), uid);
     }
 }

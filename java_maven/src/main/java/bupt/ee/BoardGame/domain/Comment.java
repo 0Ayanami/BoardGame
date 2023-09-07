@@ -10,7 +10,6 @@ public class Comment implements Serializable {
 
     private String comment;//评论
     private int uid;
-    private User user;//评论用户
 
     /**
      * 无参构造方法
@@ -52,14 +51,6 @@ public class Comment implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     @Override

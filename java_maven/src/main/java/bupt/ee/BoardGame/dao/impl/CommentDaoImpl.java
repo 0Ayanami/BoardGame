@@ -16,7 +16,12 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public void addComment(int bid, String comment, int uid) {
         String sql = " insert into comment values(?,?,?) ";
-        template.update(sql, bid, uid, comment);
+        String sql_update = " update comment set comment = ? where bid =? and uid=?";
+        try {
+            template.update(sql, bid, uid,comment);
+        }catch (Exception e){
+            template.update(sql_update, comment, bid, uid);
+        }
     }
 
     @Override
