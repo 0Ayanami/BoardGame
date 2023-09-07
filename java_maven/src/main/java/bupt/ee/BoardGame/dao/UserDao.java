@@ -44,4 +44,6 @@ public interface UserDao {
     User findByUsernameAndPassword(String username, String password);
 
     User findByUid(int uid);
+
+    public int generateUid();
 }

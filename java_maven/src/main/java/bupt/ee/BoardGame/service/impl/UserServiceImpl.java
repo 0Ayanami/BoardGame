@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     public Boolean regist(User user) {
         //根据用户名查询用户对象
         User u = userDao.findByUsername(user.getUsername());
+        u.setUid(userDao.generateUid());
         //判断null是否为null
         if (u != null){
             //用户名存在，注册失败

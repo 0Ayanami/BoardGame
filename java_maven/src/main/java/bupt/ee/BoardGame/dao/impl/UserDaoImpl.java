@@ -108,4 +108,10 @@ public class UserDaoImpl implements UserDao {
         user = template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),uid);
         return user;
     }
+    @Override
+    public int generateUid(){
+        String sql = "select max(uid) from user";
+        int userUid  = template.queryForObject(sql,Integer.class );
+        return userUid;
+    }
 }
