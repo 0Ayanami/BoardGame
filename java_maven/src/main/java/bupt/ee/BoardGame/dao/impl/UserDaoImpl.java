@@ -111,7 +111,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int generateUid(){
         String sql = "select max(uid) from user";
-        int userUid  = template.queryForObject(sql,Integer.class );
+        int userUid  = template.queryForObject(sql,Integer.class )+1;
         return userUid;
     }
 }
