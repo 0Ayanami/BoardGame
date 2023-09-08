@@ -18,7 +18,6 @@
             });
             //查询分类信息
             $.get("category/findAll",{},function (data) {
-                //[{cid:1,cname:国内游},{},{}]
                 var lis = '<li class="nav-active"><a href="index.html">首页</a></li>';
                 //遍历数组，拼接字符串
                 for (var i= 0;i<data.length;i++){
