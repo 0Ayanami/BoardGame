@@ -82,7 +82,7 @@
 					if (checkUsername()&&checkPassword()&&checkEmail()){
 						//校验通过，发送Ajax请求，提交表单数据
 						//serialize()序列化方法，可以将表单数据自动拼接为提交数据格式：username=zhangsan&password=123
-						$.post("user/regist",$(this).serialize(),function (data) {
+						$.post("/user/regist",$(this).serialize(),function (data) {
 							//处理服务器响应的数据	data
 							//返回的数据{flag:true,errorMsg:"注册失败/验证码错误"}
 							if (data.flag){
@@ -91,6 +91,7 @@
 							}else {
 								//注册失败，给div标签errorMsg添加提示信息
 								$("#errorMsg").html(data.errorMsg);
+								alert("注册失败");
 							}
 						});
 					}
@@ -154,7 +155,7 @@
     							<td class="td_left">
     								<label for="check">验证码</label>
     							</td>
-    							<td class="td_right check">
+    							<td class="td_right">
     								<input type="text" id="check" name="check" class="check">
     								<img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
 									<script type="text/javascript">
@@ -168,7 +169,7 @@
     						<tr>
     							<td class="td_left"> 
     							</td>
-    							<td class="td_right check"> 
+    							<td class="td_right">
     								<input type="submit" class="submit" value="注册" style="background-color: #347CAF;color:white">
 									<span id="msg" style="color: red;"></span>
     							</td>

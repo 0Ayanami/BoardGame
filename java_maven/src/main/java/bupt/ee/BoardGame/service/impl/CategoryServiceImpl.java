@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
         Jedis jedis = JedisUtil.getJedis();//参数为空默认访问本机的redis
         //查询使用sortedset排序查询，这样以后的缓存数据就是有序的
         //查询sortedset中的分数(cid)和值(cname)
-        Set<Tuple> categorys = jedis.zrangeWithScores("category", 0, -1);//获取该键对应的所有值
+        Set<Tuple> categorys = jedis.zrangeWithScores("categories", 0, -1);//获取该键对应的所有值
 
         List<Category> cs = null;
         //判断查询的集合是否为空

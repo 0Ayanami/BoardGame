@@ -80,21 +80,21 @@
 <body   style="margin: 0px;">
     <header>
         <div class="block" style="font-size: 15pt;color: aliceblue ;background-color:#215476">
-            <div id="sss">桌游极客</div>
-            <button id="rank"
-                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 10px;color: aliceblue;font-size: 15pt">桌游排行榜</button>
-            <button id="home"
-                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 10px;color: aliceblue;font-size: 15pt">主页</button>
-            <button id="store"
-                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 150px;color: aliceblue;font-size: 15pt">购买桌游</button>
-            <img src="img/zhanghu_1.png" height="25px" weight="25px"
-                 style="display: inline-block;vertical-align: middle">用户名
-            <button id="logout"
-                style="width: 100px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 150px;color: aliceblue;font-size: 15pt">注销</button>
-            <img src="img/fangdajing.png" height="20px" weight="20px"
-                 style="display: inline-block;vertical-align: middle">
-            <input style="margin-right: 50px" type="text" value="搜索桌游"
-                onfocus="javascript:if(this.value=='搜索桌游')this.value=''" onblur="if(!value)value='搜索桌游'" name="keyword">
+            <div id="sss"><span><img src="img/bg/jiantou.png" style="height: 15px"></span>桌游极客</div>
+<!--            <button id="rank"-->
+<!--                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 10px;color: aliceblue;font-size: 15pt">桌游排行榜</button>-->
+<!--            <button id="home"-->
+<!--                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 10px;color: aliceblue;font-size: 15pt">主页</button>-->
+<!--            <button id="store"-->
+<!--                style="width: 120px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 150px;color: aliceblue;font-size: 15pt">购买桌游</button>-->
+<!--            <img src="img/zhanghu_1.png" height="25px" weight="25px"-->
+<!--                 style="display: inline-block;vertical-align: middle">用户名-->
+<!--            <button id="logout"-->
+<!--                style="width: 100px;height: 40px;border-radius: 10px;background-color: #347CAF;margin-right: 150px;color: aliceblue;font-size: 15pt">注销</button>-->
+<!--            <img src="img/fangdajing.png" height="20px" weight="20px"-->
+<!--                 style="display: inline-block;vertical-align: middle">-->
+<!--            <input style="margin-right: 50px" type="text" value="搜索桌游"-->
+<!--                onfocus="javascript:if(this.value=='搜索桌游')this.value=''" onblur="if(!value)value='搜索桌游'" name="keyword">-->
         </div>
         <br><br>
         <div id="content">
@@ -136,5 +136,13 @@
 
 </body>
 <script src="js/ActionBar.js"></script>
-
+<script>
+    var homeTag = document.getElementById('sss');
+    homeTag.onclick = function(){
+        window.location.href='http://localhost/index.html';
+    };
+    homeTag.onmouseover=function (){
+        homeTag.style.cursor = 'pointer';
+    }
+</script>
 </html>

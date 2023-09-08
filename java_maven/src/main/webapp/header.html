@@ -22,7 +22,7 @@
                 //[{cid:1,cname:国内游},{},{}]
                 var lis = '<li class="nav-active"><a href="index.html">首页</a></li>';
                 //遍历数组，拼接字符串
-                for (var i=0;i<data.length;i++){
+                for (var i= 0;i<data.length;i++){
                         var li = '<li><a href="bg_result_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
                     lis+=li;
                 }
@@ -61,7 +61,6 @@
 
                 <span id="span_username"></span>
 
-                <a href="shopping.html" class="collection">极客购物</a>
                 <a href="javascript:location.href='user/exit';">退出</a>
             </div>
         </div>
