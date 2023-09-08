@@ -42,7 +42,7 @@
         //有的是一开始没有有值，传递一个空值过去，系统返回一个定义的值
         //最终这三个值都通过get请求，从url传递到后台
         function load(cid,currentPage,bname) {
-            //发送Ajax请求，请求route/pageQuery,传递cid，旅游大类
+            //发送Ajax请求，请求route/pageQuery,传递cid，
             $.get("boardgame/pageQuery",{cid:cid,currentPage:currentPage,bname:bname},function (pb) {
 
                 /*
@@ -166,14 +166,13 @@
                         '                                <p>'+boardgame.gameIntroduce+'</p>\n' +
                         '                            </div>\n' +
                         '                            <div class="price">\n' +
-                        '                                <p class="price_num">\n' +
-                        '                                    <span>&yen;</span>\n' +
-                        '                                    <span>'+boardgame.price+'</span>\n' +
-                        '                                    <span>起</span>\n' +
+                        '                                <p class="price_num">\n'  +
+                        '                                    <span>'+boardgame.score+'</span>\n' +
+                        '                                    <span>/10</span>\n' +
                         '                                </p>\n' +
 
-                            //此处传递这条线路的rid到后台（rid-表示所属线路，cid-表示该线路所属分类）
-                            //后面servlet会通过传递过来的rid，对多张表进行查询，再将需要的信息反馈回route_detil.html中
+
+                            //后面servlet会通过传递过来的bid，对多张表进行查询，再将需要的信息反馈回detail.html中
 
                         '                                <p><a href="detail.html?bid='+boardgame.bid+'">查看详情</a></p>\n' +
                         '                            </div>\n' +
@@ -205,7 +204,7 @@
                 <div class="left">
                     <div class="header">
                         <span>桌游信息</span>
-                        <span class="jg" style="float:right; margin-right:10%">价格</span>
+                        <span class="jg" style="float:right; margin-right:10%">评分</span>
                     </div>
                     <ul id="route">
                         <li>
@@ -217,9 +216,9 @@
                             </div>
                             <div class="price">
                                 <p class="price_num">
-                                    <span>&yen;</span>
-                                    <span>299</span>
-                                    <span>起</span>
+                                    <span>&yen</span>
+                                    <span>2</span>
+                                    <span>分</span>
                                 </p>
                                 <p><a href="detail.html">查看详情</a></p>
                             </div>

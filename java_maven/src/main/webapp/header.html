@@ -12,9 +12,8 @@
             //查询用户信息
             $.get("user/findOne",{},function (data) {
                 //服务器返回来的数据封装在data里面
-                //{uid:1,name:'李四'}
                 //console.log(data);
-                var msg = "欢迎回来，"+data.name;
+                var msg = "欢迎回来，"+data.username;
                 $("#span_username").html(msg);
             });
             //查询分类信息
@@ -39,7 +38,7 @@
                 //导入的js包中getParameter("cid")主要实现：获取当前页面的uri，并且切割获取想要的片段：cid=5
                 // var cid = getParameter("cid");
                 var cid = 0;
-                //alert(bname);//兵马俑
+                //alert(bname);
                 //注意此处，如果只是使用搜索框查询的话，此处cid传递过去的值为null，需要在RouteServlet处理该种情况
                 //跳转路径：http://localhost/travel/route_list.html?cid=5，拼接上搜索框中的内容rname=xxx
                 location.href="http://localhost/bg_result_list.html?cid="+cid+"&bname="+bname;  //这里我不知道改的对不对？请验证结果，如果有错误修改ID
@@ -77,16 +76,7 @@
      <!-- 首页导航 -->
     <div class="navitem">
         <ul id = "category" class="nav">
-            <!--<li class="nav-active"><a href="index.html">首页</a></li>
-            <li><a href="bg_result_list.html">门票</a></li>
-            <li><a href="bg_result_list.html">酒店</a></li>
-            <li><a href="bg_result_list.html">香港车票</a></li>
-            <li><a href="bg_result_list.html">出境游</a></li>
-            <li><a href="bg_result_list.html">国内游</a></li>
-            <li><a href="bg_result_list.html">港澳游</a></li>
-            <li><a href="bg_result_list.html">抱团定制</a></li>
-            <li><a href="bg_result_list.html">全球自由行</a></li>
-            <li><a href="rank.html">收藏排行榜</a></li>-->
+
         </ul>
     </div>
     
